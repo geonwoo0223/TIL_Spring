@@ -3,7 +3,8 @@ package hello.servlet.domain.member;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Member {
 
     private Long id;
@@ -11,6 +12,7 @@ public class Member {
     private int age;
 
     public Member() {
+
     }
 
     public Member(String username, int age) {
