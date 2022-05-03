@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ItemRepositoryTest {
 
@@ -26,8 +27,9 @@ class ItemRepositoryTest {
         Item savedItem = itemRepository.save(item);
 
         //then
-        Item findItem = itemRepository.findById(item.getId());
+        Item findItem =itemRepository.findById(item.getId());
         assertThat(findItem).isEqualTo(savedItem);
+
     }
 
     @Test
@@ -45,6 +47,7 @@ class ItemRepositoryTest {
         //then
         assertThat(result.size()).isEqualTo(2);
         assertThat(result).contains(item1, item2);
+
     }
 
     @Test
@@ -59,11 +62,13 @@ class ItemRepositoryTest {
         Item updateParam = new Item("item2", 20000, 30);
         itemRepository.update(itemId, updateParam);
 
+        //then
         Item findItem = itemRepository.findById(itemId);
 
-        //then
         assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
         assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
         assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());
+
     }
+
 }
