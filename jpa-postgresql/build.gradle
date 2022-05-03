@@ -1,0 +1,82 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'com.lguplus'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.23'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.mockito:mockito-core"
+
+}
+
+jacoco {
+	toolVersion = '0.8.7'
+
+	// 테스트 결과 리포트 저장 경로
+	// default는 "${project.reporting.baseDir}/jacoco"
+	// reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		xml.enabled true
+		csv.enabled true
+		html.enabled true
+	}
+
+	// finalizedBy 'jacocoTestCoverageVerification'
+}
+
+/*
+// 코드 커버리지 검증 수준 정의 (측정항목 등)
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			enabled = true
+			element = 'CLASS'
+
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.30
+			}
+		}
+	}
+}
+*/
+
+
+/*
+tasks.named('test') {
+    useJUnitPlatform()
+}
+*/

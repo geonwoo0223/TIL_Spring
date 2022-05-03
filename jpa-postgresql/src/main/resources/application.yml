@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://0.0.0.0:5432/practiceproject
+    username: jpapractice
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
