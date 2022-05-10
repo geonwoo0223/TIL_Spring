@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import practice.jpapostgresql.member.dto.MemberPostRequestDto;
 import practice.jpapostgresql.member.dto.MemberPutRequestDto;
 import practice.jpapostgresql.member.dto.MemberResponseDto;
@@ -22,6 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -54,6 +58,27 @@ class MemberServiceTest {
         assertThat(Long.parseLong(savedMember)).isEqualTo(saveMember.getId());
 
     }
+
+    @Test
+    @DisplayName("이메일 중복 유닛테스트")
+    void emailUniqueFailTest() throws Exception {
+
+        MemberPostRequestDto memberPostRequestDto = MemberPostRequestDto.builder()
+                .email("lguplus@lguplus.co.kr")
+                .name("test1")
+                .age(20)
+                .password("0000")
+                .build();
+
+        Member newMember = createNewMember();
+        when(memberRepository.findByEmail(anyString())).thenReturn(Optional.of(newMember));
+
+        MemberService memberService = new MemberService(memberRepository);
+
+        assertThat(memberService.save(memberPostRequestDto)).isEqualTo("중복 이메일");
+
+    }
+
 
     @Test
     @DisplayName("모든멤버 조회 유닛테스트")
@@ -169,6 +194,14 @@ class MemberServiceTest {
                 .email("lguplus@lguplus.co.kr")
                 .name("lguplus")
                 .password("0000")
+                .age(20)
+                .build();
+    }
+
+    private MemberResponseDto createNewMemberResponseDto() {
+        return MemberResponseDto.builder()
+                .name("lguplus")
+                .email("lguplus@lguplus.co.kr")
                 .age(20)
                 .build();
     }

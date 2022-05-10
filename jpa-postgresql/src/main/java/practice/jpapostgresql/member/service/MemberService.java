@@ -21,6 +21,13 @@ public class MemberService {
 
     @Transactional
     public String save(MemberPostRequestDto memberPostRequestDto)throws Exception {
+
+        Optional<Member> memberOptional = memberRepository.findByEmail(memberPostRequestDto.getEmail());
+
+        if ( memberOptional.isPresent() ) {
+            return "중복 이메일";
+        }
+
         Member savedMember = memberRepository.save(Member.builder()
                 .name(memberPostRequestDto.getName())
                 .email(memberPostRequestDto.getEmail())

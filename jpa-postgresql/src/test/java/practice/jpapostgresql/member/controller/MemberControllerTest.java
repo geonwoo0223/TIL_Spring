@@ -20,6 +20,7 @@ import practice.jpapostgresql.member.entity.Member;
 import practice.jpapostgresql.member.service.MemberService;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -65,32 +66,6 @@ class MemberControllerTest {
                 .andExpect(status().is4xxClientError())
                 .andDo(print());
     }
-
-    @Test
-    @DisplayName("이메일 중복 유닛테스트")
-    void emailUniqueFailTest() throws Exception {
-
-        MemberPostRequestDto memberPostRequestDto = MemberPostRequestDto.builder()
-                .email("lguplus@lguplus.co.kr")
-                .name("test1")
-                .age(20)
-                .password("0000")
-                .build();
-
-        Mockito.doReturn(createNewMemberResponseDto()).when(memberService).getMemberEmail(memberPostRequestDto.getEmail());
-
-
-
-
-        String content = objectMapper.writeValueAsString(new MemberPostRequestDto("lguplus@lguplus.co.kr", "test2", 20, "0000"));
-        mockMvc.perform(post("/v1/members/join")
-                        .content(content)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().is4xxClientError())
-                    .andDo(print());
-    }
-
 
     private Member createNewMember() {
         return Member.builder()
