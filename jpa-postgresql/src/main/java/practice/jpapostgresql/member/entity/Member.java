@@ -1,11 +1,9 @@
 package practice.jpapostgresql.member.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import practice.jpapostgresql.common.entity.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity(name = "tb_member")
 @Getter @Setter
@@ -22,10 +20,23 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private int age;
+
+    @Column(nullable = false)
+    private String password;
+
     @Builder
-    public Member(Long id, String email, String name) {
+    public Member(Long id, String email, String name, int age, String password) {
         this.id = id;
         this.email = email;
         this.name = name;
+        this.age = age;
+        this.password = password;
+    }
+
+    public void update(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import practice.jpapostgresql.member.dto.MemberPostRequestDto;
+import practice.jpapostgresql.member.dto.MemberPutRequestDto;
 import practice.jpapostgresql.member.dto.MemberResponseDto;
 import practice.jpapostgresql.member.entity.Member;
 import practice.jpapostgresql.member.service.MemberService;
@@ -46,13 +47,21 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<Member> join(@Valid MemberPostRequestDto memberPostRequestDto) throws Exception {
+    public ResponseEntity<String> join(@RequestBody @Valid MemberPostRequestDto memberPostRequestDto) throws Exception {
 
-        System.out.println("memberPostRequestDto = " + memberPostRequestDto);
+        String savedId = memberService.save(memberPostRequestDto);
 
-        Member savedMember = memberService.save(memberPostRequestDto);
+        return ResponseEntity.ok(savedId);
 
-        return ResponseEntity.ok(savedMember);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@RequestBody @Valid MemberPutRequestDto memberPutRequestDto,
+                                         @PathVariable Long id) throws Exception {
+
+        String updatedId = memberService.update(id, memberPutRequestDto);
+
+        return ResponseEntity.ok(updatedId);
 
     }
 
@@ -60,9 +69,12 @@ public class MemberController {
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
 
         memberService.delete(id);
+
         return ResponseEntity.ok("삭제 성공");
 
     }
+
+
 
 
 }

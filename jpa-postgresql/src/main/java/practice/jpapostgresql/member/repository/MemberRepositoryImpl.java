@@ -30,6 +30,11 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public Optional<Member> findByEmail(String email) {
+        return memberJpaRepository.findMemberByEmail(email);
+    }
+
+    @Override
     public Member save(Member member) {
         return memberJpaRepository.save(member);
     }
