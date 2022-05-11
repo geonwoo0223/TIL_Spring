@@ -11,9 +11,7 @@ import practice.jpapostgresql.board.repository.BoardRepositoryImpl;
 import practice.jpapostgresql.member.entity.Member;
 import practice.jpapostgresql.member.repository.MemberRepositoryImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -81,24 +79,25 @@ public class BoardServiceImpl implements BoardService {
 
         List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
 
+        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
+        List<Member> allMembers = memberRepository.findAll();
+        Map<Long, Member> membersHashMap= new HashMap<>();
+
+        for (Member member : allMembers) {
+            membersHashMap.put(member.getId(), member);
+        }
+
+
         for (Board board : oldBoards) {
 
-            // MSA향으로 수정시 member에 요청보내는것으로 수정
-            Optional<Member> memberOptional = memberRepository.findById(board.getMemberId());
+            Long memberId = board.getMemberId();
+            Member member = membersHashMap.get(memberId);
 
-            BoardMemberDto boardMemberDto = BoardMemberDto.builder().build();
-
-            if (memberOptional.isEmpty()) {
-                boardMemberDto = null;
-            }
-            // 여기까지 MSA로 바꾸면 수정할 코드
-
-            Member member = memberOptional.get();
-
-            boardMemberDto.setId(member.getId());
-            boardMemberDto.setAge(member.getAge());
-            boardMemberDto.setEmail(member.getEmail());
-            boardMemberDto.setName(member.getName());
+            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
+                                                .id(memberId)
+                                                .email(member.getEmail())
+                                                .age(member.getAge())
+                                                .name(member.getName()).build();
 
             boardResponseDtos.add(BoardResponseDto.builder()
                                     .id(board.getId())
@@ -115,17 +114,121 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardResponseDto> getAllByTitle(String title) throws Exception {
-        return null;
+        List<Board> oldBoards = boardRepository.findAllByTitle(title);
+
+        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
+
+        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
+        List<Member> allMembers = memberRepository.findAll();
+        Map<Long, Member> membersHashMap= new HashMap<>();
+
+        for (Member member : allMembers) {
+            membersHashMap.put(member.getId(), member);
+        }
+
+
+        for (Board board : oldBoards) {
+
+            Long memberId = board.getMemberId();
+            Member member = membersHashMap.get(memberId);
+
+            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
+                    .id(memberId)
+                    .email(member.getEmail())
+                    .age(member.getAge())
+                    .name(member.getName()).build();
+
+            boardResponseDtos.add(BoardResponseDto.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .createdDate(board.getCreatedDate())
+                    .memberInfo(boardMemberDto)
+                    .lastModifiedDate(board.getLastModifiedDate())
+                    .build());
+        }
+
+        return boardResponseDtos;
     }
 
     @Override
     public List<BoardResponseDto> getAllByContent(String content) throws Exception {
-        return null;
+        List<Board> oldBoards = boardRepository.findAllByContent(content);
+
+        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
+
+        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
+        List<Member> allMembers = memberRepository.findAll();
+        Map<Long, Member> membersHashMap= new HashMap<>();
+
+        for (Member member : allMembers) {
+            membersHashMap.put(member.getId(), member);
+        }
+
+
+        for (Board board : oldBoards) {
+
+            Long memberId = board.getMemberId();
+            Member member = membersHashMap.get(memberId);
+
+            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
+                    .id(memberId)
+                    .email(member.getEmail())
+                    .age(member.getAge())
+                    .name(member.getName()).build();
+
+            boardResponseDtos.add(BoardResponseDto.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .createdDate(board.getCreatedDate())
+                    .memberInfo(boardMemberDto)
+                    .lastModifiedDate(board.getLastModifiedDate())
+                    .build());
+        }
+
+        return boardResponseDtos;
     }
 
     @Override
     public List<BoardResponseDto> getAllByMember(String memberName) throws Exception {
-        return null;
+
+        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
+        List<Member> allMembers = memberRepository.findAll();
+        Map<String, Member> membersHashMap= new HashMap<>();
+
+        for (Member member : allMembers) {
+            membersHashMap.put(member.getName(), member);
+        }
+
+        List<Board> oldBoards = boardRepository.findAllByMemberId();
+
+        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
+
+
+
+        for (Board board : oldBoards) {
+
+            Long memberId = board.getMemberId();
+            Member member = membersHashMap.get(memberId);
+
+            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
+                    .id(memberId)
+                    .email(member.getEmail())
+                    .age(member.getAge())
+                    .name(member.getName()).build();
+
+            boardResponseDtos.add(BoardResponseDto.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .createdDate(board.getCreatedDate())
+                    .memberInfo(boardMemberDto)
+                    .lastModifiedDate(board.getLastModifiedDate())
+                    .build());
+        }
+
+        return boardResponseDtos;
     }
 
     @Override
