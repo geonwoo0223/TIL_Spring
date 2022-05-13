@@ -103,7 +103,7 @@ public class MemberService {
 
         memberOptional.ifPresent(member -> {
             member.update(memberPutRequestDto.getName(), memberPutRequestDto.getAge());
-            memberRepository.save(member);
+//            memberRepository.save(member);
         });
 
         return id.toString();

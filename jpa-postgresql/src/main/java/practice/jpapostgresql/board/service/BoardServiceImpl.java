@@ -192,43 +192,44 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardResponseDto> getAllByMember(String memberName) throws Exception {
-
-        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
-        List<Member> allMembers = memberRepository.findAll();
-        Map<String, Member> membersHashMap= new HashMap<>();
-
-        for (Member member : allMembers) {
-            membersHashMap.put(member.getName(), member);
-        }
-
-        List<Board> oldBoards = boardRepository.findAllByMemberId();
-
-        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
-
-
-
-        for (Board board : oldBoards) {
-
-            Long memberId = board.getMemberId();
-            Member member = membersHashMap.get(memberId);
-
-            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
-                    .id(memberId)
-                    .email(member.getEmail())
-                    .age(member.getAge())
-                    .name(member.getName()).build();
-
-            boardResponseDtos.add(BoardResponseDto.builder()
-                    .id(board.getId())
-                    .title(board.getTitle())
-                    .content(board.getContent())
-                    .createdDate(board.getCreatedDate())
-                    .memberInfo(boardMemberDto)
-                    .lastModifiedDate(board.getLastModifiedDate())
-                    .build());
-        }
-
-        return boardResponseDtos;
+//
+//        // MSA향으로 수정시 member에 요청보내는것으로 수정 (redis 적용하기 좋은 곳)
+//        List<Member> allMembers = memberRepository.findAll();
+//        Map<String, Member> membersHashMap= new HashMap<>();
+//
+//        for (Member member : allMembers) {
+//            membersHashMap.put(member.getName(), member);
+//        }
+//
+//        List<Board> oldBoards = boardRepository.findAllByMemberId();
+//
+//        List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
+//
+//
+//
+//        for (Board board : oldBoards) {
+//
+//            Long memberId = board.getMemberId();
+//            Member member = membersHashMap.get(memberId);
+//
+//            BoardMemberDto boardMemberDto = BoardMemberDto.builder()
+//                    .id(memberId)
+//                    .email(member.getEmail())
+//                    .age(member.getAge())
+//                    .name(member.getName()).build();
+//
+//            boardResponseDtos.add(BoardResponseDto.builder()
+//                    .id(board.getId())
+//                    .title(board.getTitle())
+//                    .content(board.getContent())
+//                    .createdDate(board.getCreatedDate())
+//                    .memberInfo(boardMemberDto)
+//                    .lastModifiedDate(board.getLastModifiedDate())
+//                    .build());
+//        }
+//
+//        return boardResponseDtos;
+        return null;
     }
 
     @Override
