@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="417aa568-a867-494f-b85a-7dc973ddddf9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/domain/item/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/domain/item/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/domain/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/domain/item/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/web/form/FormItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/java/hello/itemservice/web/form/FormItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form/src/main/resources/templates/form/addForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/resources/templates/form/addForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form/src/main/resources/templates/form/editForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/resources/templates/form/editForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form/src/main/resources/templates/form/item.html" beforeDir="false" afterPath="$PROJECT_DIR$/form/src/main/resources/templates/form/item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thymeleaf-basic/src/main/resources/templates/basic/javascript.html" beforeDir="false" afterPath="$PROJECT_DIR$/thymeleaf-basic/src/main/resources/templates/basic/javascript.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2AN08E74ex1shgxi5RL4eKHdHyk" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="417aa568-a867-494f-b85a-7dc973ddddf9" name="Changes" comment="" />
+      <created>1654834574243</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1654834574243</updated>
+      <workItem from="1654834575422" duration="1000" />
+    </task>
+    <servers />
+  </component>
+</project>
