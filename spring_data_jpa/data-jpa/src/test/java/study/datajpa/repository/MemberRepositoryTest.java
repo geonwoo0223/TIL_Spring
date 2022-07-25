@@ -7,12 +7,17 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
+import study.datajpa.entity.TestDto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.minBy;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,8 +28,7 @@ class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
     @Autowired TeamRepository teamRepository;
-    @PersistenceContext
-    private EntityManager em;
+
 
     @Test
     public void testMember() {
@@ -106,9 +110,6 @@ class MemberRepositoryTest {
         Member member2 = new Member("member2", 10, teamB);
         memberRepository.save(member1);
         memberRepository.save(member2);
-        
-        em.flush();
-        em.clear();
 
         List<Member> members = memberRepository.findAll();
 
@@ -122,6 +123,23 @@ class MemberRepositoryTest {
     @Test
     public void callCustom() {
         List<Member> memberCustom = memberRepository.findMemberCustom();
+    }
+
+    @Test
+    public void colltest() {
+
+        List<TestDto> result = null;
+        result.add(TestDto.builder().priority(1).containerId("123").searchType("T").build());
+        result.add(TestDto.builder().priority(2).containerId("124").searchType("C").build());
+        result.add(TestDto.builder().priority(3).containerId("125").searchType("V").build());
+        result.add(TestDto.builder().priority(2).containerId("123").searchType("C").build());
+        result.add(TestDto.builder().priority(3).containerId("123").searchType("C").build());
+        result.add(TestDto.builder().priority(3).containerId("126").searchType("V").build());
+        result.add(TestDto.builder().priority(3).containerId("127").searchType("T").build());
+
+        System.out.println("result = " + result);
+
+
     }
 
 }
